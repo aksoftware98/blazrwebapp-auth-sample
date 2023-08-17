@@ -1,0 +1,24 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+<PageTitle>Home</PageTitle>
+
+<h1>Home</h1>
+
+Welcome to your new app.
+
+<AuthorizeView>
+	<Authorized>
+		<h1>@context.User.FindFirst("name")?.Value</h1>
+		<AhmadMozaffar.Components.Components.CommentBox @rendermode="@RenderMode.WebAssembly" />
+	</Authorized>
+	<NotAuthorized>
+		<h2>Not authenticated, please sign in to be able to write a comment</h2>
+		
+	</NotAuthorized>
+</AuthorizeView>
+
+@code
+{
+	
+}

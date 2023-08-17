@@ -1,0 +1,25 @@
+﻿@inject IJSRuntime JSRuntime
+@inject HttpClient HttpClient
+<h3>CommentBox (@(_isBusy ? "Loading" : "Done")</h3>
+<div class="form-group">
+<input type="text" @bind-value="_commentText" class="form-control" />
+</div>
+<button class="btn btn-class" @onclick="SubmitCommentAsync">Click me</button>
+
+@code {
+
+	private bool _isBusy = false;
+	private string _commentText = string.Empty;
+	protected async Task SubmitCommentAsync()
+	{
+
+		_isBusy = true;
+		await Task.Delay(1500);
+		await HttpClient.PostAsJsonAsync("/api/comments", new
+		{
+			comment = _commentText
+		});
+		_commentText = string.Empty;
+		_isBusy = false;
+	}
+}
